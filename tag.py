@@ -48,7 +48,7 @@ def generateTags(reportName):
         gram = '%' + gram + '%'
 
         try:
-            cursor.execute("""SELECT tag_name FROM nlp.bigram_tag_map where bigram LIKE %s ORDER  BY tag_name DESC LIMIT 1 """, (gram,))
+            cursor.execute("""SELECT tag_name FROM nlp.bigram_tag_map where bigram LIKE %s OR strpos(%s, bigram) > 0 ORDER  BY tag_name DESC LIMIT 1 """, (gram,gram))
             result = cursor.fetchall()
 
             if len(result)>0:
@@ -58,15 +58,15 @@ def generateTags(reportName):
             for j in result:
                 tags.append(j[0])
 
-            cursor.execute("""SELECT tag_name FROM nlp.bigram_tag_map where strpos(%s, bigram) > 0 ORDER  BY tag_name DESC LIMIT 1 """, (gram,))
-            result = cursor.fetchall()
-
-            if len(result)>0:
-                completedWords.append(i[0])
-                completedWords.append(i[1])
-
-            for j in result:
-                tags.append(j[0])
+            # cursor.execute("""SELECT tag_name FROM nlp.bigram_tag_map where strpos(%s, bigram) > 0 ORDER  BY tag_name DESC LIMIT 1 """, (gram,))
+            # result = cursor.fetchall()
+            #
+            # if len(result)>0:
+            #     completedWords.append(i[0])
+            #     completedWords.append(i[1])
+            #
+            # for j in result:
+            #     tags.append(j[0])
 
 
         except Exception as ex:
@@ -85,17 +85,17 @@ def generateTags(reportName):
         gram = str(i[0])
         gram = '%' + gram + '%'
         try:
-            cursor.execute("""SELECT tag_name FROM nlp.unigram_tag_map where unigram LIKE %s ORDER  BY tag_name DESC LIMIT 1 """, (gram,))
+            cursor.execute("""SELECT tag_name FROM nlp.unigram_tag_map where unigram LIKE %s OR strpos(%s, unigram) > 0 ORDER  BY tag_name DESC LIMIT 1 """, (gram,gram))
             result = cursor.fetchall()
 
             for j in result:
                 tags.append(j[0])
 
-            cursor.execute("""SELECT tag_name FROM nlp.unigram_tag_map where strpos(%s, unigram) > 0 ORDER  BY tag_name DESC LIMIT 1 """, (gram,))
-            result = cursor.fetchall()
-
-            for j in result:
-                tags.append(j[0])
+            # cursor.execute("""SELECT tag_name FROM nlp.unigram_tag_map where strpos(%s, unigram) > 0 ORDER  BY tag_name DESC LIMIT 1 """, (gram,))
+            # result = cursor.fetchall()
+            #
+            # for j in result:
+            #     tags.append(j[0])
 
 
 
