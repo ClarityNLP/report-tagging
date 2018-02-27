@@ -17,9 +17,10 @@ def test(t):
     cursor = conn.cursor()
 
     #cursor.execute("""SELECT tag_name FROM nlp.unigram_tag_map where unigram in %s """, (t, ))
-    cursor.execute("""SELECT tag_name FROM nlp.unigram_tag_map where strpos(%s, unigram) > 0 """, (t, ))
+    #cursor.execute("""SELECT tag_name FROM nlp.unigram_tag_map where strpos(%s, unigram) > 0 """, (t, ))
+    cursor.execute("""SELECT tag_name from nlp.bigram_tag_map where strpos(%s, bigram) = 1 ORDER BY tag_name DESC LIMIT 1 """, (t,))
     result = cursor.fetchall()
-    print result
+    return result
     conn.close()
 
 
@@ -45,10 +46,12 @@ def generateTags(reportName):
 
     for i in bigrams:
         gram = ' '.join(i)
-        gram = '%' + gram + '%'
+        #gram = '%' + gram + '%'
 
         try:
-            cursor.execute("""SELECT tag_name FROM nlp.bigram_tag_map where bigram LIKE %s OR strpos(%s, bigram) > 0 ORDER  BY tag_name DESC LIMIT 1 """, (gram,gram))
+            #cursor.execute("""SELECT tag_name FROM nlp.bigram_tag_map where bigram LIKE %s OR strpos(%s, bigram) > 0 ORDER  BY tag_name DESC LIMIT 1 """, (gram,gram))
+            #cursor.execute("""SELECT tag_name FROM nlp.bigram_tag_map where bigram LIKE %s OR strpos(%s, bigram) > 0 ORDER  BY tag_name DESC LIMIT 1 """, (gram,gram))
+            cursor.execute("""SELECT tag_name FROM nlp.bigram_tag_map where strpos(%s, bigram) = 1 ORDER  BY tag_name DESC LIMIT 1 """, (gram,))
             result = cursor.fetchall()
 
             if len(result)>0:
@@ -83,9 +86,11 @@ def generateTags(reportName):
 
     for i in unigrams:
         gram = str(i[0])
-        gram = '%' + gram + '%'
+        #gram = '%' + gram + '%'
         try:
-            cursor.execute("""SELECT tag_name FROM nlp.unigram_tag_map where unigram LIKE %s OR strpos(%s, unigram) > 0 ORDER  BY tag_name DESC LIMIT 1 """, (gram,gram))
+            #cursor.execute("""SELECT tag_name FROM nlp.unigram_tag_map where unigram LIKE %s OR strpos(%s, unigram) > 0 ORDER  BY tag_name DESC LIMIT 1 """, (gram,gram))
+            #cursor.execute("""SELECT tag_name FROM nlp.unigram_tag_map where unigram LIKE %s OR strpos(%s, unigram) = 1 ORDER  BY tag_name DESC LIMIT 1 """, (gram,gram))
+            cursor.execute("""SELECT tag_name FROM nlp.unigram_tag_map where strpos(%s, unigram) = 1 ORDER  BY tag_name DESC LIMIT 1 """, (gram,))
             result = cursor.fetchall()
 
             for j in result:

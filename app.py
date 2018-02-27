@@ -13,6 +13,7 @@ def reportTag():
     if request.method == 'GET':
         r = request.args.get('report')
         tags = generateTags(r)
+        #tags = test(r)
         return jsonify(tags)
 
 if __name__ == '__main__':
