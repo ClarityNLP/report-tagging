@@ -2,7 +2,7 @@
 Repository for report name tagging
 
 ## Installation
-1. Setup virtualenv / production environment
+1. Setup virtual / production environment
 2. `pip install -r requirements.txt`
 
 ## Running the app
@@ -28,4 +28,8 @@ Accepts a report name and returns tags based on the given report name. Currently
 
 **loaddata.py**
 
-Helper script to extract tag mappings from the Report Type Mapper and populate it into the database. 
+Helper script to extract tag mappings from the Report Type Mapper and populate it into the database.
+
+**tag.py**
+
+Helper script which accepts a report name and returns a list of associated tags. Follows the logic of breaking down a report name into bigrams and unigrams and then doing a regex match based on the tag mapping entries stored in the database.
