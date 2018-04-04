@@ -4,6 +4,7 @@ Repository for report name tagging
 ## Installation
 1. Setup virtual / production environment
 2. `pip install -r requirements.txt`
+3. Edit the `config.cfg` file provided with appropriate credentials.
 
 ## Running the app
 `python app.py`
