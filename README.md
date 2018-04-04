@@ -23,3 +23,9 @@ Accepts a report name and returns tags based on the given report name. Currently
 ```
 
 **Return Type:** JSON. Contains a list of associated tags.
+
+## Helpers
+
+**loaddata.py**
+
+Helper script to extract tag mappings from the Report Type Mapper and populate it into the database. 
