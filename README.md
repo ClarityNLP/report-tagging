@@ -13,7 +13,7 @@ Repository for report name tagging
 
 **About:**
 
-Accepts a report name and returns tags based on the given report name. Currently being down by breaking down the report name into smaller components and doing regex matchings against a stored mapping. 
+Accepts a report name and returns tags based on the given report name. Currently being done by breaking down the report name into smaller components and doing regex matchings against a stored mapping. 
 
 **Parameters:** Report name (Mandatory)
 
