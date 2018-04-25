@@ -18,13 +18,18 @@ def load1Grams():
 
     conn = psycopg2.connect(util.conn_string)
     cursor = conn.cursor()
-    cursor.execute("""DELETE from nlp.unigram_tag_map;""")
+    #cursor.execute("""DELETE from nlp.unigram_tag_map;""")
 
     for i in q:
         if len(i['tags']) > 0:
             a = i['name']
             b = i['tags'][0]['documentSubjectMatterDomain']
-            cursor.execute("""INSERT INTO nlp.unigram_tag_map (unigram, tag_name) VALUES (%s,%s);""", (a,b))
+
+            cursor.execute("""SELECT * FROM nlp.unigram_tag_map WHERE unigram = %s;""", (a,))
+            result = cursor.fetchall()
+
+            if len(result) == 0:
+                cursor.execute("""INSERT INTO nlp.unigram_tag_map (unigram, tag_name) VALUES (%s,%s);""", (a,b))
 
     conn.commit()
     conn.close()
@@ -37,13 +42,18 @@ def load2Grams():
 
     conn = psycopg2.connect(util.conn_string)
     cursor = conn.cursor()
-    cursor.execute("""DELETE from nlp.bigram_tag_map;""")
+    #cursor.execute("""DELETE from nlp.bigram_tag_map;""")
 
     for i in q:
         if len(i['tags']) > 0:
             a = i['name']
             b = i['tags'][0]['documentSubjectMatterDomain']
-            cursor.execute("""INSERT INTO nlp.bigram_tag_map (bigram, tag_name) VALUES (%s,%s);""", (a,b))
+
+            cursor.execute("""SELECT * FROM nlp.bigram_tag_map WHERE bigram = %s;""", (a,))
+            result = cursor.fetchall()
+
+            if len(result) == 0:
+                cursor.execute("""INSERT INTO nlp.bigram_tag_map (bigram, tag_name) VALUES (%s,%s);""", (a,b))
 
     conn.commit()
     conn.close()
