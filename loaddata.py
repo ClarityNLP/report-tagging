@@ -18,12 +18,17 @@ def load1Grams():
 
     conn = psycopg2.connect(util.conn_string)
     cursor = conn.cursor()
-    #cursor.execute("""DELETE from nlp.unigram_tag_map;""")
+    cursor.execute("""DELETE from nlp.unigram_tag_map;""")
 
     for i in q:
         if len(i['tags']) > 0:
             a = i['name']
-            b = i['tags'][0]['documentSubjectMatterDomain']
+            #b = i['tags'][0]['documentSubjectMatterDomain']
+
+            b = []
+            for j in i['tags']:
+                b.append(j['documentSubjectMatterDomain'])
+            b = '$'.join(b)
 
             cursor.execute("""SELECT * FROM nlp.unigram_tag_map WHERE unigram = %s;""", (a,))
             result = cursor.fetchall()
@@ -42,12 +47,18 @@ def load2Grams():
 
     conn = psycopg2.connect(util.conn_string)
     cursor = conn.cursor()
-    #cursor.execute("""DELETE from nlp.bigram_tag_map;""")
+    cursor.execute("""DELETE from nlp.bigram_tag_map;""")
 
     for i in q:
         if len(i['tags']) > 0:
             a = i['name']
-            b = i['tags'][0]['documentSubjectMatterDomain']
+            #b = i['tags'][0]['documentSubjectMatterDomain']
+
+            b = []
+            for j in i['tags']:
+                b.append(j['documentSubjectMatterDomain'])
+            b = '$'.join(b)
+
 
             cursor.execute("""SELECT * FROM nlp.bigram_tag_map WHERE bigram = %s;""", (a,))
             result = cursor.fetchall()

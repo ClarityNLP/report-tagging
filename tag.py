@@ -59,7 +59,11 @@ def generateTags(reportName):
                 completedWords.append(i[1])
 
             for j in result:
-                tags.append(j[0])
+                if '$' in j[0]:
+                    tagList = j[0].split('$')
+                    tags.extend(tagList)
+                else:
+                    tags.append(j[0])
 
             # cursor.execute("""SELECT tag_name FROM nlp.bigram_tag_map where strpos(%s, bigram) > 0 ORDER  BY tag_name DESC LIMIT 1 """, (gram,))
             # result = cursor.fetchall()
@@ -94,7 +98,11 @@ def generateTags(reportName):
             result = cursor.fetchall()
 
             for j in result:
-                tags.append(j[0])
+                if '$' in j[0]:
+                    tagList = j[0].split('$')
+                    tags.extend(tagList)
+                else:
+                    tags.append(j[0])
 
             # cursor.execute("""SELECT tag_name FROM nlp.unigram_tag_map where strpos(%s, unigram) > 0 ORDER  BY tag_name DESC LIMIT 1 """, (gram,))
             # result = cursor.fetchall()
