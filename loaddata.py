@@ -18,7 +18,7 @@ def load1Grams():
 
     conn = psycopg2.connect(util.conn_string)
     cursor = conn.cursor()
-    cursor.execute("""DELETE from nlp.unigram_tag_map;""")
+    #cursor.execute("""DELETE from nlp.unigram_tag_map;""")
 
     for i in q:
         if len(i['tags']) > 0:
@@ -47,7 +47,7 @@ def load2Grams():
 
     conn = psycopg2.connect(util.conn_string)
     cursor = conn.cursor()
-    cursor.execute("""DELETE from nlp.bigram_tag_map;""")
+    #cursor.execute("""DELETE from nlp.bigram_tag_map;""")
 
     for i in q:
         if len(i['tags']) > 0:
