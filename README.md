@@ -31,6 +31,28 @@ Accepts a report name and returns tags based on the given report name. Currently
 
 Helper script to extract tag mappings from the Report Type Mapper and populate it into the database.
 
+_Usage_
+
+```
+python loaddata.py
+```
+
+
+**script.py**
+
+Helper script to tag a list of report names. Accepts a file containing a list of report names and displays the associated tags in the terminal window.
+
+_Usage_
+
+```
+python script.py <FILE CONTAINING REPORT NAMES> <API ENDPOINT>
+```
+
+_Example_
+```
+python script.py reports.txt http://localhost:5000
+```
+
 **tag.py**
 
-Helper script which accepts a report name and returns a list of associated tags. Follows the logic of breaking down a report name into bigrams and unigrams and then doing a regex match based on the tag mapping entries stored in the database.
+Helper script which accepts a report name and returns a list of associated tags. Follows the logic of breaking down a report name into bigrams and unigrams and then doing a regex match based on the tag mapping entries stored in the database. The API internally calls this script and this is the work horse of the system.
